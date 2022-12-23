@@ -24,20 +24,20 @@ weather_table = PrettyTable()
 
 forecasts = json.loads(json.dumps(r['properties']['periods']))
 hour_cast = json.loads(json.dumps(rhour['properties']['periods']))
-#cast_list = []
-#print("------------------------------")
-#for cast in hour_cast:
-#    if cast['number'] <= 12:
-#        cast_list.append(cast['temperature'])
-#
-#print("Next 12 hours: " + str(cast_list[0:]))
-#for forecast in forecasts:
-#    if forecast['number'] <= 4:
-#        print("Forecast for: "+forecast['name'])
-#        print("Tempurature: "+str(forecast['temperature']) + forecast['temperatureUnit'])
-#        print("Wind Speed: " + forecast['windSpeed'] + ", direction " + forecast['windDirection'])
-#        print(forecast['detailedForecast'])
-#        print("------------------------------")
+cast_list = []
+print("------------------------------")
+for cast in hour_cast:
+    if cast['number'] <= 12:
+        cast_list.append(cast['temperature'])
+
+print(f"Temp for the next 12 hours: " + str(cast_list[0:]) + "\n")
+for forecast in forecasts:
+    if forecast['number'] <= 4:
+        print("Forecast for: "+forecast['name'])
+        print("Tempurature: "+str(forecast['temperature']) + forecast['temperatureUnit'])
+        print("Wind Speed: " + forecast['windSpeed'] + ", direction " + forecast['windDirection'])
+        print(forecast['detailedForecast']+"\n")
+        print(f"------------------------------\n")
 cal_day_names = []
 for day in cal.iterweekdays():
     if day == 0:
