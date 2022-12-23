@@ -36,7 +36,7 @@ for forecast in forecasts:
         print("Forecast for: "+forecast['name'])
         print("Tempurature: "+str(forecast['temperature']) + forecast['temperatureUnit'])
         print("Wind Speed: " + forecast['windSpeed'] + ", direction " + forecast['windDirection'])
-        print(forecast['detailedForecast']+"\n")
+        print("Details: " + forecast['detailedForecast']+"\n")
         print(f"------------------------------\n")
 cal_day_names = []
 for day in cal.iterweekdays():
@@ -85,7 +85,9 @@ print(weather_table)
 alerts = json.loads(json.dumps(ralert))
 if alerts['features']:
     #print(alerts['features'])
-    print(f"WEATHER ALERTS!!!\n")
+    print("=======================")
+    print("== WEATHER ALERTS!!! ==")
+    print(f"=======================\n")
     for alert in alerts['features']:
         sender = json.dumps(alert['properties']['senderName'])
         headline = json.dumps(alert['properties']['headline'])
