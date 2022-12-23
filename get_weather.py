@@ -36,6 +36,7 @@ for forecast in forecasts:
         print("Forecast for: "+forecast['name'])
         print("Tempurature: "+str(forecast['temperature']) + forecast['temperatureUnit'])
         print("Wind Speed: " + forecast['windSpeed'] + ", direction " + forecast['windDirection'])
+        print(f"Summary: " + forecast['shortForecast'] + "\n")
         print("Details: " + forecast['detailedForecast']+"\n")
         print(f"------------------------------\n")
 cal_day_names = []
@@ -72,12 +73,12 @@ for i in cal_day_names:
             cast_temp = "Temp: " + str(forecast['temperature'])
             cast_wind = forecast['windSpeed']
             cast_wind_dir = forecast['windDirection']
-            cast_detail = forecast['detailedForecast']
+            cast_detail = forecast['shortForecast']
             table_dict[i] = {day:=cast_name,temp:=cast_temp,wind:=cast_wind,wind_dir:=cast_wind_dir,detail:=cast_detail} 
             weather_table.add_column(i,[
                                      #cast_name,
                                      cast_temp,
-                                     str(cast_wind) + " " + str(cast_wind_dir),
+                                     str(cast_wind) + " " + str(cast_wind_dir)
                                      #cast_detail
                               ]) 
 #print(table_dict)
