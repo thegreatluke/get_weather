@@ -1,106 +1,88 @@
 #!/usr/bin/env python3
+import json
+import sys
+import requests
 
-#import requests, json
-import requests, json, calendar
-from prettytable import PrettyTable
-from datetime import date
+class location():
+    def __init__(self, city, state):
+        self.city = city.capitalize()
+        self.state = state.capitalize()
+        print(self.city, self.state)
+        self.geo_url='https://geocoding-api.open-meteo.com/v1/search'
+        self.params = {
+            "name": self.city,
+            "count": 10,
+        }
+        try:
+            r = requests.get(self.geo_url, params=self.params)
+        except requests.exceptions.RequestException as e:
+            raise SystemExit(e)
 
-## API VARS
-header = {"User-Agent": "(rawlins.luke.weather.py luke@lukerawlins.com)"}
-base_url = "https://api.weather.gov/"
-zone = "OHZ055"
-r = requests.get(base_url + "gridpoints/ILN/79,85/forecast", headers=header).json()
-#r = requests.get(base_url + "stations/kosu/observations/latest", headers=header).json()
-rhour = requests.get(base_url + "gridpoints/ILN/79,85/forecast/hourly", headers=header).json()
-ralert = requests.get(base_url + "alerts/active/zone/" + zone, headers=header).json()
+        for i in r.json()['results']:
+            if i['admin1'] == self.state:
+                self.lat = i['latitude']
+                self.long = i['longitude']
+                self.tz = i['timezone']
+                self.country = i['country']
 
-today = date.today() # format like 2022-12-03
-today_num = today.weekday()
-today_week_day = calendar.day_name[today_num] # day as string (Monday, Tuesday, etc..)
-cal = calendar.Calendar(firstweekday=today.weekday()) # set calendar first day as today
+    def get_lat(self):
+        try:
+            self.lat
+        except NameError as e:
+            raise SystemExit(e)
+        return self.lat
 
-weather_table = PrettyTable()
-#weather_table.fieldnames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    def get_long(self):
+        try:
+            self.long
+        except NameError as e:
+            raise SystemExit(e)
+        return self.long
 
-forecasts = json.loads(json.dumps(r['properties']['periods']))
-hour_cast = json.loads(json.dumps(rhour['properties']['periods']))
-cast_list = []
-print("------------------------------")
-for cast in hour_cast:
-    if cast['number'] <= 12:
-        cast_list.append(cast['temperature'])
+    def get_tz(self):
+        try:
+            self.tz
+        except NameError as e:
+            raise SystemExit(e)
+        return self.tz
 
-print(f"Temp for the next 12 hours: " + str(cast_list[0:]) + "\n")
-for forecast in forecasts:
-    if forecast['number'] <= 4:
-        print("Forecast for: "+forecast['name'])
-        print("Tempurature: "+str(forecast['temperature']) + forecast['temperatureUnit'])
-        print("Wind Speed: " + forecast['windSpeed'] + ", direction " + forecast['windDirection'])
-        print(f"Summary: " + forecast['shortForecast'] + "\n")
-        print("Details: " + forecast['detailedForecast']+"\n")
-        print(f"------------------------------\n")
-cal_day_names = []
-for day in cal.iterweekdays():
-    if day == 0:
-        day = "Monday"
-        cal_day_names.append(day)
-    elif day == 1:
-        day = "Tuesday"
-        cal_day_names.append(day)
-    elif day == 2:
-        day = "Wednesday"
-        cal_day_names.append(day)
-    elif day == 3:
-        day = "Thursday"
-        cal_day_names.append(day)
-    elif day == 4:
-        day = "Friday"
-        cal_day_names.append(day)
-    elif day == 5:
-        day = "Saturday"
-        cal_day_names.append(day)
-    elif day == 6:
-        day = "Sunday"
-        cal_day_names.append(day)
-    else:
-        print("This is embarassing... something is wrong")
-#weather_table.field_names = cal_day_names
-table_dict = {}
-for i in cal_day_names:
-    for forecast in forecasts:
-        if i in forecast['name']:
-            cast_name = forecast['name']
-            cast_temp = "Temp: " + str(forecast['temperature'])
-            cast_wind = forecast['windSpeed']
-            cast_wind_dir = forecast['windDirection']
-            cast_detail = forecast['shortForecast']
-            table_dict[i] = {day:=cast_name,temp:=cast_temp,wind:=cast_wind,wind_dir:=cast_wind_dir,detail:=cast_detail} 
-            weather_table.add_column(i,[
-                                     #cast_name,
-                                     cast_temp,
-                                     str(cast_wind) + " " + str(cast_wind_dir)
-                                     #cast_detail
-                              ]) 
-#print(table_dict)
-print(weather_table)
-alerts = json.loads(json.dumps(ralert))
-if alerts['features']:
-    #print(alerts['features'])
-    print("=======================")
-    print("== WEATHER ALERTS!!! ==")
-    print(f"=======================\n")
-    for alert in alerts['features']:
-        sender = json.dumps(alert['properties']['senderName'])
-        headline = json.dumps(alert['properties']['headline'])
-        description = json.dumps(alert['properties']['description'])
-        print("From: " + sender)
-        print(headline)
-        #print(repr(description))
-        #print(description,sep="\\n\\n")
-        print("------------------------------")
-        #print(json.dumps(alert, indent=4))
-#
-#print(weather_table)
-#print(json.dumps(rhour, indent=4))
-#print(json.dumps(ralert, indent=4))
-#print(json.dumps(r, indent=4))
+    def get_country(self):
+        try:
+            self.country
+        except NameError as e:
+            raise SystemExit(e)
+        return self.country
+
+class forecast():
+    def __init__(self, lat, long, tz):
+        self.w_url = 'https://api.open-meteo.com/v1/forecast'
+        self.params = {
+            "latitude": lat,
+            "longitude": long,
+            "current": "temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,showers,snowfall,cloud_cover",
+            #rain,showers,snowfall,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10"
+            "temperature_unit": "fahrenheit",
+            "wind_speed_unit": "mph",
+            "precipitation_unit": "inch",
+            #"minutely_15": "wind_speed_10m",
+            "timezone": tz,
+            #"past_days": 1,
+        }
+        try:
+            self.r = requests.get(self.w_url, params=self.params)
+        except requests.exceptions.RequestException as e:
+            raise SystemExit(e)
+
+    def get_forecast(self):
+        return self.r.json()
+
+l = location('Denver', 'colorado')
+lat = l.get_lat()
+long = l.get_long()
+tz = l.get_tz()
+
+f = forecast(lat, long, tz).get_forecast()
+print(json.dumps(f,indent=4))
+
+
+
