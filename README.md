@@ -26,4 +26,10 @@ https://open-meteo.com/
 Python 3 with the requests library installed.
 
 
+## TODO:
 
+- [ ] wind speed
+- [ ] wind direction
+- [ ] rain/snow
+- [ ] international cities
+- [ ] command options to get subsets
