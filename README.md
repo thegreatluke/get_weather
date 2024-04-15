@@ -24,6 +24,13 @@ https://open-meteo.com/
 ## Requirements
 
 Python 3 with the requests library installed.
+`pip install requests`
 
 
+## TODO:
 
+- [ ] wind speed
+- [ ] wind direction
+- [ ] rain/snow
+- [ ] international cities
+- [ ] command options to get subsets
