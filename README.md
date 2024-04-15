@@ -24,6 +24,7 @@ https://open-meteo.com/
 ## Requirements
 
 Python 3 with the requests library installed.
+`pip install requests`
 
 
 ## TODO:
