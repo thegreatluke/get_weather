@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
+import argparse
 import json
 import sys
+import textwrap
 import requests
 
 class location():
     def __init__(self, city, state):
-        self.city = city.capitalize()
-        self.state = state.capitalize()
-        print(self.city, self.state)
+        self.city = city.title()
+        self.state = state.title()
+        print(self.city + ', ' +  self.state)
         self.geo_url='https://geocoding-api.open-meteo.com/v1/search'
         self.params = {
             "name": self.city,
@@ -19,11 +21,15 @@ class location():
             raise SystemExit(e)
 
         for i in r.json()['results']:
+            #print(json.dumps(r.json(),indent=4))
             if i['admin1'] == self.state:
                 self.lat = i['latitude']
                 self.long = i['longitude']
                 self.tz = i['timezone']
                 self.country = i['country']
+                break
+            else:
+                continue
 
     def get_lat(self):
         try:
@@ -56,6 +62,8 @@ class location():
 class forecast():
     def __init__(self, lat, long, tz):
         self.w_url = 'https://api.open-meteo.com/v1/forecast'
+        self.api_lic = 'Weather data by Open-Meteo.com'
+        self.api_lnk = 'https://open-meteo.com/'
         self.params = {
             "latitude": lat,
             "longitude": long,
@@ -74,15 +82,32 @@ class forecast():
             raise SystemExit(e)
 
     def get_forecast(self):
+        print(self.api_lic)
+        print(self.api_lnk)
         return self.r.json()
 
-l = location('Denver', 'colorado')
+parser = argparse.ArgumentParser(
+        #            description="Weather forecast for a given City and State.",
+                    formatter_class=argparse.RawDescriptionHelpFormatter,
+                    description=textwrap.dedent('''\
+                       Weather forecast for a given City and State. 
+                       --------------------------------------------
+                             Weather data by Open-Meteo.com 
+                             https://open-meteo.com/
+                    '''))
+    #            epilog='''Weather data by Open-Meteo.com \n https://open-meteo.com/'''
+           #      )
+parser.add_argument("-c", "--city", help="A City, example: Columbus", nargs='+', required=True)
+parser.add_argument("-s", "--state", help="A State, example: Ohio", nargs ='+', required=True)
+args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
+
+city = ' '.join(args.city)
+state = ' '.join(args.state)
+l = location(city, state)
 lat = l.get_lat()
 long = l.get_long()
 tz = l.get_tz()
-
 f = forecast(lat, long, tz).get_forecast()
 print(json.dumps(f,indent=4))
-
 
 
