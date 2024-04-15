@@ -87,7 +87,6 @@ class forecast():
         return self.r.json()
 
 parser = argparse.ArgumentParser(
-        #            description="Weather forecast for a given City and State.",
                     formatter_class=argparse.RawDescriptionHelpFormatter,
                     description=textwrap.dedent('''\
                        Weather forecast for a given City and State. 
@@ -95,19 +94,23 @@ parser = argparse.ArgumentParser(
                              Weather data by Open-Meteo.com 
                              https://open-meteo.com/
                     '''))
-    #            epilog='''Weather data by Open-Meteo.com \n https://open-meteo.com/'''
-           #      )
+# Get arguments
 parser.add_argument("-c", "--city", help="A City, example: Columbus", nargs='+', required=True)
 parser.add_argument("-s", "--state", help="A State, example: Ohio", nargs ='+', required=True)
 args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
 
+# If the city/state are two words need to turn the list into a two word string
 city = ' '.join(args.city)
 state = ' '.join(args.state)
+# create location class passing in city and state
+## Todo: make it international
 l = location(city, state)
 lat = l.get_lat()
 long = l.get_long()
 tz = l.get_tz()
+# Finally pass in latitude and longitude to get forecast
 f = forecast(lat, long, tz).get_forecast()
+## Todo: parse this json and print something nicer.
 print(json.dumps(f,indent=4))
 
 
