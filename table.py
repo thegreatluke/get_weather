@@ -1,0 +1,22 @@
+# GFM :: ADDING MY OWN WHACKED OUT TABLE IMPL
+#
+#
+# BCUZ
+
+# DESIGNED WIDTH = 13
+# DESIGNED TABLE WIDTH = (13 * 7) = 91 > 80
+# REMOVE PADDING WIDTH = 11
+# RP TABLE WIDTH = (11 * 7) = 77 < 80
+#
+# GO WITH THE LESS THAN 80 COLS DESIGN FIRST
+#
+# DESIGNED HEIGHT = 15
+#
+# NO REASON TO CHANGE THIS YET
+
+class TableCell:
+    WIDTH  = 11
+    HEIGHT = 15
+
+    def __init__(self) -> None:
+        pass
