@@ -45,3 +45,4 @@ UNIC_CLOUD_RAIN           = '🌧'
 UNIC_CLOUD_SNOW           = '🌨'
 UNIC_TSTORM               = '🌩'
 UNIC_DEG_SYM              = "\u00B0"
+UNIC_CLOCK                = "🕔"

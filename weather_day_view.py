@@ -158,7 +158,7 @@ class WeatherDayView:
                         udata=f"{self.weather_data.Variables(APICODE_TEMP2MMAX).Values(d)}{defs.UNIC_DEG_SYM}"
                     )
                 )
-                
+
                 # SUNRISE/SUNSET
                 self.sunrise.composite.append(
                     ansi.ATString(
@@ -170,5 +170,47 @@ class WeatherDayView:
                             )
                         ),
                         udata=f"{defs.UNIC_SUNNY}"
+                    )
+                )
+                self.sunrise.composite.append(
+                    ansi.ATString(
+                        prefix=ansi.ATStringPrefix(
+                            fgcol=ansi.rainbow.CCTextDefault()
+                        ),
+                        udata=f"{self.weather_data.Variables(APICODE_SUNRISE).Values(d)}"
+                    )
+                )
+                self.sunset.composite.append(
+                    ansi.ATString(
+                        prefix=ansi.ATStringPrefix(
+                            fgcol=ansi.rainbow.CCAppleNPurpleDark(),
+                            coords=ansi.ATCoordinates(
+                                row=self.draw_offset.row + 11,
+                                col=self.draw_offset.col + 7
+                            )
+                        ),
+                        udata=f"{defs.UNIC_SUNNY}"
+                    )
+                )
+                self.sunset.composite.append(
+                    ansi.ATString(
+                        prefix=ansi.ATStringPrefix(
+                            fgcol=ansi.rainbow.CCTextDefault()
+                        ),
+                        udata=f"{self.weather_data.Variables(APICODE_SUNSET).Values(d)}"
+                    )
+                )
+                
+                # DAYLIGHT/SUNLIGHT DURATION
+                self.daylight_duration.composite.append(
+                    ansi.ATString(
+                        prefix=ansi.ATStringPrefix(
+                            fgcol=ansi.rainbow.CCAppleNYellowLight(),
+                            coords=ansi.ATCoordinates(
+                                row=self.draw_offset.row + 12,
+                                col=self.draw_offset.col + 1
+                            )
+                        ),
+                        udata=f"{}{}"
                     )
                 )

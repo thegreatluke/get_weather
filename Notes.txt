@@ -45,3 +45,11 @@ There's a pretty simple method for doing this. I'll try to elaborate on it as be
         therefore...
             b.Values(<int>) where <int> = day of sample set, zero indexed yields the value for the day; 0 = current day
             The name of the weekday can be obtained using the Python calendar module's day_abbr list, and giving it the current day's weekday() value as an index
+
+Putting this differently, the following general call structure would allow for a daily call value:
+    forecast_for_city.Daily().Variables(<parameter_id>).Values(<day_id>)
+
+Within the WeatherDayView class, the day_offset variable can change the day that's used to populate the data. If day_offset isn't specified in the constructor, its default value is zero, meaning the current day.
+Also, within the WeatherDayView class, the individual portions of the view are populated relative to the current day calculation.
+
+I need to research how to do formatted numerical output.
