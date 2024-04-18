@@ -153,6 +153,14 @@ class WeatherDayView:
                         udata=f"{self.weather_data.Variables(APICODE_TEMP2MMIN).Values(d)}"
                     )
                 )
+                self.temp_high.composite.append(
+                    ansi.ATString(
+                        prefix=ansi.ATCoordinates(
+                            row=self.draw_offset.row + 1,
+                            col=self.draw_offset.col + 7
+                        )
+                    )
+                )
 
     # def draw(self) -> str:
     #     """
