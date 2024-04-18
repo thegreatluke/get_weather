@@ -2,10 +2,10 @@
 
 # GFM :: WEATHER-VIEW
 #
-# CONSOLIDATES THE WEATHER INFORMATION INTO A GRAPHICAL DISPLAY
+# CONSOLIDATES THE DAILY WEATHER INFORMATION INTO A GRAPHICAL DISPLAY
 
 """
-WeatherView Module
+WeatherDayView Module
 
 Defines a view for weather information that can be inserted into a Table Cell.
 This module focuses on one day only, and from the Daily collection. The Current
@@ -173,18 +173,3 @@ class WeatherDayView:
                         udata=f"{self.weather_data.Variables(APICODE_TEMP2MMAX).Values(d)}{defs.UNIC_DEG_SYM}"
                     )
                 )
-
-    # def draw(self) -> str:
-    #     """
-    #     Populates the data from this view into a string with ANSI SGRs and returns that to the caller.
-    #     """
-    #     a = ''
-
-    #     a += f"{ansi.ATCoordinates(row = (self.draw_offset.row + 1), col = (self.draw_offset.col + 1)).to_ansi_str()}{self.weather_alert.to_ansi_str()}"
-    #     a += f"{ansi.ATCoordinates(row = (self.draw_offset.row + 2), col = (self.draw_offset.col + 2)).to_ansi_str()}{self.day_display.to_ansi_str()}"
-    #     a += f"{ansi.ATCoordinates(row = (self.draw_offset.row + 4), col = (self.draw_offset.col + 1)).to_ansi_str()}{self.weather_art}"
-    #     a += f"{ansi.ATCoordinates(row = (self.draw_offset.row + 10), col = (self.draw_offset.col + 1)).to_ansi_str()}{self.temp_display.to_ansi_str()}"
-    #     a += f"{ansi.ATCoordinates(row = (self.draw_offset.row + 10), col = (self.draw_offset.col + 7)).to_ansi_str()}{self.humidity_display.to_ansi_str()}"
-    #     a += f"{ansi.ATCoordinates(row = (self.draw_offset.row + 11), col = (self.draw_offset.col + 1)).to_ansi_str()}{self.precip_display.to_ansi_str()}"
-
-    #     return a
