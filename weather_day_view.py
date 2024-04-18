@@ -23,22 +23,15 @@ import pytz
 # THESE ARE PULLED FROM THE OPEN METEO API CALL
 # THE ORDER IS ENTIRELY DEPENDENT UPON THE ORDER THEY
 # APPEAR IN THE CALL.
-APICODE_WEATHER_CODE        = 0
-APICODE_TEMP2MMAX           = 1
-APICODE_TEMP2MMIN           = 2
-APICODE_SUNRISE             = 3
-APICODE_SUNSET              = 4
-APICODE_DAYLIGHT_DURATION   = 5
-APICODE_SUNSHINE_DURATION   = 6
-APICODE_UVINDEX_MAX         = 7
-APICODE_UVINDEX_CSM         = 8
-APICODE_PRECIP_SUM          = 9
-APICODE_RAIN_SUM            = 10
-APICODE_SHOWERS_SUM         = 11
-APICODE_SNOWFALL_SUM        = 12
-APICODE_WINDSPEED_10MMAX    = 13
-APICODE_WINDGUSTS_10MMAX    = 14
-APICODE_WINDDIR_10MDOMINANT = 15
+APICODE_WEATHER_CODE      = 0
+APICODE_TEMP2MMAX         = 1
+APICODE_TEMP2MMIN         = 2
+APICODE_SUNRISE           = 3
+APICODE_SUNSET            = 4
+APICODE_DAYLIGHT_DURATION = 5
+APICODE_SUNSHINE_DURATION = 6
+APICODE_WINDSPEED_10MMAX  = 7
+
 
 class WeatherDayView:
     """
@@ -130,8 +123,8 @@ class WeatherDayView:
                         prefix=ansi.ATStringPrefix(
                             fgcol=ansi.rainbow.CCAppleNBlueLight(),
                             coords=ansi.ATCoordinates(
-                                row=self.draw_offset.row + 1,
-                                col=self.draw_offset.col + 10
+                                row=self.draw_offset.row + 10,
+                                col=self.draw_offset.col + 1
                             )
                         ),
                         udata=f"{defs.UNIC_THERMOMETER}"
@@ -150,7 +143,7 @@ class WeatherDayView:
                         prefix=ansi.ATStringPrefix(
                             fgcol=ansi.rainbow.CCAppleNRedLight(),
                             coords=ansi.ATCoordinates(
-                                row=self.draw_offset.row + 1,
+                                row=self.draw_offset.row + 10,
                                 col=self.draw_offset.col + 7
                             )
                         ),
@@ -166,4 +159,16 @@ class WeatherDayView:
                     )
                 )
                 
-                
+                # SUNRISE/SUNSET
+                self.sunrise.composite.append(
+                    ansi.ATString(
+                        prefix=ansi.ATStringPrefix(
+                            fgcol=ansi.rainbow.CCAppleNYellowLight(),
+                            coords=ansi.ATCoordinates(
+                                row=self.draw_offset.row + 11,
+                                col=self.draw_offset.col + 1
+                            )
+                        ),
+                        udata=f"{defs.UNIC_SUNNY}"
+                    )
+                )
