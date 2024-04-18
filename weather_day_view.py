@@ -55,7 +55,12 @@ class WeatherDayView:
         self.sunshine_duration   = ansi.ATStringComposite()
         self.windspeed_10mmax    = ansi.ATStringComposite()
 
+        self.interpolate_weather_data()
+
     def interpolate_weather_data(self):
+        """
+        Takes the weather data provided from the data set and interpolates it into the desired layout.
+        """
         if self.weather_data is not None:
             # WE CAN DO SOMETHING WITH THE DATA
             if self.draw_offset is not None:
