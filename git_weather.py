@@ -54,7 +54,7 @@ params        = {
 	"latitude"          : location.latitude,
 	"longitude"         : location.longitude,
 	"current"           : ["temperature_2m", "is_day", "precipitation", "rain", "showers", "snowfall", "weather_code", "cloud_cover", "wind_speed_10m", "wind_direction_10m", "wind_gusts_10m"],
-	"daily"             : ["weather_code", "temperature_2m_max", "temperature_2m_min", "sunrise", "sunset", "daylight_duration", "sunshine_duration", "uv_index_max", "uv_index_clear_sky_max", "precipitation_sum", "rain_sum", "showers_sum", "snowfall_sum", "wind_speed_10m_max", "wind_gusts_10m_max", "wind_direction_10m_dominant"],
+	"daily"             : ["weather_code", "temperature_2m_max", "temperature_2m_min", "sunrise", "sunset", "daylight_duration", "sunshine_duration", "wind_speed_10m_max"],
 	"temperature_unit"  : "fahrenheit",
 	"wind_speed_unit"   : "mph",
 	"precipitation_unit": "inch",

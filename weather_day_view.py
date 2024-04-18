@@ -60,15 +60,7 @@ class WeatherDayView:
         self.sunset              = ansi.ATStringComposite()
         self.daylight_duration   = ansi.ATStringComposite()
         self.sunshine_duration   = ansi.ATStringComposite()
-        self.uvindex_max         = ansi.ATStringComposite()
-        self.uvindex_csm         = ansi.ATStringComposite()
-        self.precip_sum          = ansi.ATStringComposite()
-        self.rain_sum            = ansi.ATStringComposite()
-        self.showers_sum         = ansi.ATStringComposite()
-        self.snowfall_sum        = ansi.ATStringComposite()
         self.windspeed_10mmax    = ansi.ATStringComposite()
-        self.windgusts_10mmax    = ansi.ATStringComposite()
-        self.winddir_10mdominant = ansi.ATStringComposite()
 
     def interpolate_weather_data(self):
         if self.weather_data is not None:
@@ -173,3 +165,5 @@ class WeatherDayView:
                         udata=f"{self.weather_data.Variables(APICODE_TEMP2MMAX).Values(d)}{defs.UNIC_DEG_SYM}"
                     )
                 )
+                
+                
