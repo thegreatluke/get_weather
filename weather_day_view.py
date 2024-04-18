@@ -211,6 +211,26 @@ class WeatherDayView:
                                 col=self.draw_offset.col + 1
                             )
                         ),
-                        udata=f"{}{}"
+                        udata=f"{defs.UNIC_CLOCK}"
+                    )
+                )
+                self.daylight_duration.composite.append(
+                    ansi.ATString(
+                        prefix=ansi.ATStringPrefix(
+                            fgcol=ansi.rainbow.CCTextDefault()
+                        )
+                    ),
+                    udata=f"{self.weather_data.Variables(APICODE_DAYLIGHT_DURATION).Values(d)}"
+                )
+                self.sunshine_duration.composite.append(
+                    ansi.ATString(
+                        prefix=ansi.ATStringPrefix(
+                            fgcol=ansi.rainbow.CCAppleNPinkLight(),
+                            coords=ansi.ATCoordinates(
+                                row=self.draw_offset.row + 12,
+                                col=self.draw_offset.col + 7
+                            )
+                        ),
+                        udata=f"{self.weather_data.Variables(APICODE_SUNSHINE_DURATION).Values(d)}"
                     )
                 )
