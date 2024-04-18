@@ -1,0 +1,47 @@
+'Current',
+'Daily',
+'Elevation',
+'GenerationTimeMilliseconds',
+'GetRootAs',
+'GetRootAsWeatherApiResponse',
+'Hourly',
+'Init',
+'Latitude',
+'LocationId',
+'Longitude',
+'Minutely15',
+'Model',
+'SixHourly',
+'Timezone',
+'TimezoneAbbreviation',
+'UtcOffsetSeconds',
+
+
+Current: ['GetRootAs', 'GetRootAsVariablesWithTime', 'Init', 'Interval', 'Time', 'TimeEnd', 'Variables', 'VariablesIsNone', 'VariablesLength', '__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__slots__', '__str__', '__subclasshook__', '_tab']
+
+
+Time Range Start:
+datetime.datetime.fromtimestamp(forecast_for_city.Daily().Time())
+
+Time Range End:
+datetime.datetime.fromtimestamp(forecast_for_city.Daily().TimeEnd())
+
+TimeZone Information:
+forecast_for_city.Timezone()
+
+forecast_for_city.Daily().Interval() = 86400 (number of seconds in a day)
+
+Python has a tzinfo class
+This is evidently very poorly fleshed out as the stdlib doesn't do a good job of inherently supporting time zones. pytz seems like a good answer for this.
+Evidently, the datetime library from Python isn't as full-featured as one would initially assume.
+
+
+Ultimately, what I need to do is determine the delta of time between Time() and TimeEnd() in a 24-hour interval
+
+I've done this, but I need to get values for a datapoint given the day and time (fix the time to 1400 UTC (1200 EST))
+There's a pretty simple method for doing this. I'll try to elaborate on it as best as possible here:
+    forecast_for_city.Daily().Variables(<int>): openmeteo_sdk.VariableWithValues.VariableWithValues (let's call a sample variable b for here)
+    b.ValuesLength() = number of days sampled from the Open Meteo API Call (end_time - start_time)
+        therefore...
+            b.Values(<int>) where <int> = day of sample set, zero indexed yields the value for the day; 0 = current day
+            The name of the weekday can be obtained using the Python calendar module's day_abbr list, and giving it the current day's weekday() value as an index
