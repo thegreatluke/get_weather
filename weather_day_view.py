@@ -150,15 +150,27 @@ class WeatherDayView:
                         prefix=ansi.ATStringPrefix(
                             fgcol=ansi.rainbow.CCTextDefault()
                         ),
-                        udata=f"{self.weather_data.Variables(APICODE_TEMP2MMIN).Values(d)}"
+                        udata=f"{self.weather_data.Variables(APICODE_TEMP2MMIN).Values(d)}{defs.UNIC_DEG_SYM}"
                     )
                 )
                 self.temp_high.composite.append(
                     ansi.ATString(
-                        prefix=ansi.ATCoordinates(
-                            row=self.draw_offset.row + 1,
-                            col=self.draw_offset.col + 7
-                        )
+                        prefix=ansi.ATStringPrefix(
+                            fgcol=ansi.rainbow.CCAppleNRedLight(),
+                            coords=ansi.ATCoordinates(
+                                row=self.draw_offset.row + 1,
+                                col=self.draw_offset.col + 7
+                            )
+                        ),
+                        udata=f"{defs.UNIC_THERMOMETER}"
+                    )
+                )
+                self.temp_high.composite.append(
+                    ansi.ATString(
+                        prefix=ansi.ATStringPrefix(
+                            fgcol=ansi.rainbow.CCTextDefault()
+                        ),
+                        udata=f"{self.weather_data.Variables(APICODE_TEMP2MMAX).Values(d)}{defs.UNIC_DEG_SYM}"
                     )
                 )
 
