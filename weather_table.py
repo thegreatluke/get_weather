@@ -16,6 +16,9 @@
 
 import weather_day_view as wdv
 import ansi
+# import pdb
+
+# pdb.set_trace()
 
 class WeatherTableCell:
     WIDTH             = 14
@@ -39,13 +42,18 @@ class WeatherTableCell:
         a = ''
         
         if self.use_border:
-            for b in range(self.origin_point.col, WeatherTableCell.WIDTH):
+            # I'M A DUMBASS
+            # THIS FAILS ON THE SECOND CELL BECAUSE BY THIS POINT,
+            # ORIGIN_POINT.COL IS GREATER THAN WEATHERTABLECELL.WIDTH
+            # WHICH EXPLAINS WHY YOU DON'T EVEN SEE THE ANSI DATA
+            # IN THE STRING.
+            for b in range(self.origin_point.col, (self.origin_point.col + WeatherTableCell.WIDTH)):
                 a += ansi.ATString(
                     prefix=ansi.ATStringPrefix(
                         fgcol=ansi.rainbow.CCTextDefault(),
                         coords=ansi.ATCoordinates(
                             row=self.origin_point.row,
-                            col=self.origin_point.col + b
+                            col=b
                         )
                     ),
                     udata=f"{WeatherTableCell.BORDER_HORIZONTAL}"
@@ -55,17 +63,17 @@ class WeatherTableCell:
                         fgcol=ansi.rainbow.CCTextDefault(),
                         coords=ansi.ATCoordinates(
                             row=self.origin_point.row + WeatherTableCell.HEIGHT,
-                            col=self.origin_point.col + b
+                            col=b
                         )
                     ),
                     udata=f"{WeatherTableCell.BORDER_HORIZONTAL}"
                 ).to_ansi_str()
-            for b in range(self.origin_point.row, WeatherTableCell.HEIGHT):
+            for c in range(self.origin_point.row, WeatherTableCell.HEIGHT):
                 a += ansi.ATString(
                     prefix=ansi.ATStringPrefix(
                         fgcol=ansi.rainbow.CCTextDefault(),
                         coords=ansi.ATCoordinates(
-                            row=self.origin_point.row + b,
+                            row=self.origin_point.row + c,
                             col=self.origin_point.col
                         )
                     ),
@@ -75,13 +83,14 @@ class WeatherTableCell:
                     prefix=ansi.ATStringPrefix(
                         fgcol=ansi.rainbow.CCTextDefault(),
                         coords=ansi.ATCoordinates(
-                            row=self.origin_point.row + b,
+                            row=self.origin_point.row + c,
                             col=self.origin_point.col + WeatherTableCell.WIDTH
                         )
                     ),
                     udata=f"{WeatherTableCell.BORDER_VERTICAL}"
                 ).to_ansi_str()
 
+        # breakpoint()
         # THIS MAY NOT WORK, BUT FUCK IT
         a += self.weather_view.__str__()
 
