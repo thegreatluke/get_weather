@@ -46,3 +46,6 @@ UNIC_CLOUD_SNOW           = '🌨'
 UNIC_TSTORM               = '🌩'
 UNIC_DEG_SYM              = "\u00B0"
 UNIC_CLOCK                = "🕔"
+UNIC_WIND                 = "💨"
+UNIC_TEMP_LOW             = "👇"
+UNIC_TEMP_HIGH            = "👆"
