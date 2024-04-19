@@ -113,7 +113,7 @@ class WeatherTable:
                     weather_data=self.weather_data,
                     origin_point=ansi.ATCoordinates(
                         row=1,
-                        col=(a * WeatherTableCell.WIDTH) + 1
+                        col=(a * WeatherTableCell.WIDTH)
                     ),
                     table_pos=a
                 )
