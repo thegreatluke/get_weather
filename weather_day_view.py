@@ -18,6 +18,9 @@ import ansi
 from calendar import day_abbr
 import datetime
 import pytz
+# import pdb
+
+# pdb.set_trace()
 
 # VARIABLE REFERENCE DEFINITIONS
 # THESE ARE PULLED FROM THE OPEN METEO API CALL
@@ -41,7 +44,7 @@ class WeatherDayView:
     """
     def __init__(self, **kwargs):
         self.weather_data = kwargs['weather_data'] if 'weather_data' in kwargs else None
-        self.draw_offset  = kwargs['draw_offset'] if 'draw_offset' in kwargs else ansi.ATCoordinatesNone()
+        self.draw_offset  = kwargs['draw_offset'] if 'draw_offset' in kwargs else ansi.ATCoordinatesDefault()
         self.day_offset   = kwargs['day_offset'] if 'day_offset' in kwargs else 0
 
         self.weather_code        = ansi.ATStringComposite()
@@ -57,6 +60,17 @@ class WeatherDayView:
 
         self.interpolate_weather_data()
 
+    def __str__(self) -> str:
+        return f"{self.weather_code.to_ansi_str()} \
+            {self.day_name.to_ansi_str()} \
+            {self.temp_low.to_ansi_str()}"
+            # {self.temp_high.to_ansi_str()} \
+            # {self.sunrise.to_ansi_str()} \
+            # {self.sunset.to_ansi_str()} \
+            # {self.daylight_duration.to_ansi_str()} \
+            # {self.sunshine_duration.to_ansi_str()} \
+            # {self.windspeed_10mmax.to_ansi_str()}"
+
     def interpolate_weather_data(self):
         """
         Takes the weather data provided from the data set and interpolates it into the desired layout.
@@ -68,6 +82,8 @@ class WeatherDayView:
                 t = datetime.datetime.fromtimestamp(self.weather_data.Time(), pytz.utc) + datetime.timedelta(days=self.day_offset)
                 d = t.weekday()
 
+                # breakpoint()
+
                 self.day_name.composite.append(
                     ansi.ATString(
                         prefix=ansi.ATStringPrefix(
@@ -77,7 +93,7 @@ class WeatherDayView:
                                 col=self.draw_offset.col + 2
                             )
                         ),
-                        udata=f"{day_abbr[d]} {t.day()}"
+                        udata=f"{day_abbr[d]} {t.day}"
                     )
                 )
 
@@ -90,7 +106,7 @@ class WeatherDayView:
                         )
                     )
                 )
-                match self.weather_data.Variables(APICODE_WEATHER_CODE).Values(d):
+                match self.weather_data.Variables(APICODE_WEATHER_CODE).Values(0):
                     case defs.WMO_CLEAR_SKY:
                         z1.udata        = f"{defs.UNIC_SUNNY}"
                         z1.prefix.fgcol = ansi.rainbow.CCAppleNYellowLight()
@@ -138,9 +154,13 @@ class WeatherDayView:
                 self.temp_low.composite.append(
                     ansi.ATString(
                         prefix=ansi.ATStringPrefix(
-                            fgcol=ansi.rainbow.CCTextDefault()
+                            fgcol=ansi.rainbow.CCTextDefault(),
+                            coords=ansi.ATCoordinates(
+                                row=self.draw_offset.row + 10,
+                                col=self.temp_low.composite[0].prefix.coords.col + 1
+                            )
                         ),
-                        udata=f"{self.weather_data.Variables(APICODE_TEMP2MMIN).Values(d)}{defs.UNIC_DEG_SYM}"
+                        udata=f"{int(self.weather_data.Variables(APICODE_TEMP2MMIN).Values(0))}{defs.UNIC_DEG_SYM}"
                     )
                 )
                 self.temp_high.composite.append(
@@ -160,7 +180,7 @@ class WeatherDayView:
                         prefix=ansi.ATStringPrefix(
                             fgcol=ansi.rainbow.CCTextDefault()
                         ),
-                        udata=f"{self.weather_data.Variables(APICODE_TEMP2MMAX).Values(d)}{defs.UNIC_DEG_SYM}"
+                        udata=f"{self.weather_data.Variables(APICODE_TEMP2MMAX).Values(0)}{defs.UNIC_DEG_SYM}"
                     )
                 )
 
@@ -182,7 +202,7 @@ class WeatherDayView:
                         prefix=ansi.ATStringPrefix(
                             fgcol=ansi.rainbow.CCTextDefault()
                         ),
-                        udata=f"{self.weather_data.Variables(APICODE_SUNRISE).Values(d)}"
+                        udata=f"{self.weather_data.Variables(APICODE_SUNRISE).Values(0)}"
                     )
                 )
                 self.sunset.composite.append(
@@ -202,7 +222,7 @@ class WeatherDayView:
                         prefix=ansi.ATStringPrefix(
                             fgcol=ansi.rainbow.CCTextDefault()
                         ),
-                        udata=f"{self.weather_data.Variables(APICODE_SUNSET).Values(d)}"
+                        udata=f"{self.weather_data.Variables(APICODE_SUNSET).Values(0)}"
                     )
                 )
                 
@@ -223,9 +243,9 @@ class WeatherDayView:
                     ansi.ATString(
                         prefix=ansi.ATStringPrefix(
                             fgcol=ansi.rainbow.CCTextDefault()
-                        )
-                    ),
-                    udata=f"{self.weather_data.Variables(APICODE_DAYLIGHT_DURATION).Values(d)}"
+                        ),
+                        udata=f"{self.weather_data.Variables(APICODE_DAYLIGHT_DURATION).Values(0)}"
+                    )
                 )
                 self.sunshine_duration.composite.append(
                     ansi.ATString(
@@ -236,6 +256,6 @@ class WeatherDayView:
                                 col=self.draw_offset.col + 7
                             )
                         ),
-                        udata=f"{self.weather_data.Variables(APICODE_SUNSHINE_DURATION).Values(d)}"
+                        udata=f"{self.weather_data.Variables(APICODE_SUNSHINE_DURATION).Values(0)}"
                     )
                 )

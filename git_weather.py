@@ -2,18 +2,20 @@
 
 # THE FOLLOWING IS AVAILABLE FROM THE VENV
 # BUT THE LINTER HATES ITS GUTS
+import os
+import weather_day_view as wdv
 import sys
+from calendar import day_abbr
+import datetime
 import argparse
 import pdb
-import datetime
-from calendar import day_abbr
 import pytz
 import openmeteo_requests
 import requests_cache
 from geopy.geocoders import Nominatim
 from retry_requests import retry
 
-pdb.set_trace()
+# pdb.set_trace()
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -73,10 +75,18 @@ utc_dt_end        = datetime.datetime.fromtimestamp(forecast_for_city.Daily().Ti
 num_forecast_days = utc_dt_end - utc_dt_start
 dow_start_name    = day_abbr[utc_dt_start.weekday()]
 
-breakpoint()
+# breakpoint()
 
 # print(
 #     f"Address: {location.address}\n"
 #     f"Coordinates: {location.latitude}, {location.longitude}\n"
 #     f"Raw Data: {location.raw}\n"
 # )
+
+# TRY TO USE THE WEATHER DAY VIEW CLASS
+wdv_sample = wdv.WeatherDayView(
+    weather_data=forecast_for_city.Daily()
+)
+
+os.system('cls')
+print(wdv_sample)

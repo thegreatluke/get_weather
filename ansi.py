@@ -102,7 +102,7 @@ class ATCoordinatesDefault(ATCoordinates):
     Symbolic placeholder for default coordinates.
     """
     def __init__(self):
-        super().__init__(row=1, col=18)
+        super().__init__(row=1, col=1)
 
 
 class ATStringPrefix:
