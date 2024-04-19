@@ -18,8 +18,8 @@ import weather_day_view as wdv
 import ansi
 
 class WeatherTableCell:
-    WIDTH             = 13
-    HEIGHT            = 5
+    WIDTH             = 14
+    HEIGHT            = 4
     BORDER_HORIZONTAL = '-'
     BORDER_VERTICAL   = '|'
 

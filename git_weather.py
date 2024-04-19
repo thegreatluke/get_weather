@@ -106,3 +106,4 @@ weather_table = wtbl.WeatherTable(
 os.system('cls')
 # print(wdv_sample)
 print(weather_table)
+print("\n\n\n")
