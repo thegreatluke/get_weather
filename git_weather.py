@@ -4,6 +4,7 @@
 # BUT THE LINTER HATES ITS GUTS
 import os
 # import weather_day_view as wdv
+import weather_table as wtbl
 import sys
 from calendar import day_abbr
 import datetime
@@ -88,5 +89,20 @@ dow_start_name    = day_abbr[utc_dt_start.weekday()]
 #     weather_data=forecast_for_city.Daily()
 # )
 
+# TRY TO USE THE WEATHER TABLE
+# ALREADY KNOW THIS IS GOING TO BE A BIG OOF
+# I'M TOTALLY EXPECTING THIS TO FAIL ON THE FIRST PASS
+#
+#
+#
+#     HOLY FUCKING DOG SHIT THAT ACTUALLY WORKED!
+#
+# THE BORDERS ARE FUBAR, AND I NEED SOME PADDING AT THE END OF THE RUN
+#
+weather_table = wtbl.WeatherTable(
+    weather_data=forecast_for_city.Daily()
+)
+
 os.system('cls')
-print(wdv_sample)
+# print(wdv_sample)
+print(weather_table)
