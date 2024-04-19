@@ -53,3 +53,11 @@ Within the WeatherDayView class, the day_offset variable can change the day that
 Also, within the WeatherDayView class, the individual portions of the view are populated relative to the current day calculation.
 
 I need to research how to do formatted numerical output.
+    This was already handled by f-strings.
+
+
+
+
+ 👇054° 👆070°
+
+ Width = 13

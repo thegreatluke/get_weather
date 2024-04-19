@@ -3,7 +3,7 @@
 # THE FOLLOWING IS AVAILABLE FROM THE VENV
 # BUT THE LINTER HATES ITS GUTS
 import os
-import weather_day_view as wdv
+# import weather_day_view as wdv
 import sys
 from calendar import day_abbr
 import datetime
@@ -83,10 +83,10 @@ dow_start_name    = day_abbr[utc_dt_start.weekday()]
 #     f"Raw Data: {location.raw}\n"
 # )
 
-# TRY TO USE THE WEATHER DAY VIEW CLASS
-wdv_sample = wdv.WeatherDayView(
-    weather_data=forecast_for_city.Daily()
-)
+# # TRY TO USE THE WEATHER DAY VIEW CLASS
+# wdv_sample = wdv.WeatherDayView(
+#     weather_data=forecast_for_city.Daily()
+# )
 
 os.system('cls')
 print(wdv_sample)

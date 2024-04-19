@@ -79,7 +79,7 @@ class WeatherDayView:
                         )
                     )
                 )
-                match self.weather_data.Variables(APICODE_WEATHER_CODE).Values(0):
+                match self.weather_data.Variables(APICODE_WEATHER_CODE).Values(self.day_offset):
                     case defs.WMO_CLEAR_SKY:
                         self.weather_code.udata        = f"{defs.UNIC_SUNNY}"
                         self.weather_code.prefix.fgcol = ansi.rainbow.CCAppleNYellowLight()
@@ -147,7 +147,7 @@ class WeatherDayView:
                                 col=self.windspeed_10mmax.composite[0].prefix.coords.col + 3
                             )
                         ),
-                        udata=f"{int(self.weather_data.Variables(APICODE_WINDSPEED_10MMAX).Values(0))} Mph"
+                        udata=f"{int(self.weather_data.Variables(APICODE_WINDSPEED_10MMAX).Values(self.day_offset))} Mph"
                     )
                 )
 
@@ -173,7 +173,7 @@ class WeatherDayView:
                                 col=self.temp_low.composite[0].prefix.coords.col + 2
                             )
                         ),
-                        udata=f"{int(self.weather_data.Variables(APICODE_TEMP2MMIN).Values(0)):03}{defs.UNIC_DEG_SYM}"
+                        udata=f"{int(self.weather_data.Variables(APICODE_TEMP2MMIN).Values(self.day_offset)):03}{defs.UNIC_DEG_SYM}"
                     )
                 )
                 self.temp_high.composite.append(
@@ -197,7 +197,7 @@ class WeatherDayView:
                                 col=self.temp_high.composite[0].prefix.coords.col + 2
                             )
                         ),
-                        udata=f"{int(self.weather_data.Variables(APICODE_TEMP2MMAX).Values(0)):03}{defs.UNIC_DEG_SYM}"
+                        udata=f"{int(self.weather_data.Variables(APICODE_TEMP2MMAX).Values(self.day_offset)):03}{defs.UNIC_DEG_SYM}"
                     )
                 )
 
