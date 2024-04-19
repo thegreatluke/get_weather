@@ -8,7 +8,6 @@ This module focuses on one day only, and from the Daily collection. The Current
 Collection isn't considered.
 """
 
-import sys
 import defs
 import ansi
 from calendar import day_abbr
@@ -201,6 +200,11 @@ class WeatherDayView:
                     )
                 )
 
+                # DESPITE THE FACT THAT THESE WERE CUT FROM THE FINAL IMPLEMENTATION,
+                # THEY'LL BE LEFT HERE AS AN EXAMPLE OF HOW YOU COULD EXTEND THE TABLE
+                # VIEWS WITH ADDITIONAL DATA, PROVIDED THE DATA ARE RETROFIT IN THE API
+                # CALL AND THE APPROPRIATE VARIABLES ARE ADDED IN DEFS.
+                #
                 # SUNRISE/SUNSET
                 # THESE AREN'T GENERATING ANY DATA FROM THE API CALL
                 # I REALLY SHOULD ADD CASES FOR MISSING DATA, BUT I'M

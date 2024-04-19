@@ -1,30 +1,19 @@
 # pylint: disable=import-error, line-too-long, invalid-name
 
-# THE FOLLOWING IS AVAILABLE FROM THE VENV
-# BUT THE LINTER HATES ITS GUTS
 import os
-# import weather_day_view as wdv
 import weather_table as wtbl
 import sys
-from calendar import day_abbr
-import datetime
 import argparse
-import pdb
-import pytz
 import openmeteo_requests
 import requests_cache
 from geopy.geocoders import Nominatim
 from retry_requests import retry
-
-# pdb.set_trace()
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
     description='Git Weather - Weather Git Gud'
 )
 
-# SUPPORTING INTERNATIONAL LOCATIONS WOULD REQUIRE
-# CHANGING THE CALL INTERFACE
 parser.add_argument(
     '-c',
     '--city',
@@ -43,12 +32,9 @@ args = parser.parse_args(
     args = None if sys.argv[1:] else ['--help']
 )
 
-# USE NOMINATIM TO GEOCODE THE CITY, STATE
 floc          = f"{' '.join(args.city)}, {' '.join(args.state)}"
 geolocator    = Nominatim(user_agent = 'git_weather')
 location      = geolocator.geocode(floc)
-
-# BORROWED CODE FROM THE OPEN-METEO API GENERATOR
 cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
 retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
 openmeteo     = openmeteo_requests.Client(session = retry_session)
@@ -65,45 +51,10 @@ params        = {
 }
 responses         = openmeteo.weather_api(omurl, params = params)
 forecast_for_city = responses[0]
-
-# PYTZ RECOMMENDS THAT TIMES BE HANDLED PRINCIPALLY AS UTC
-# AND CONVERTED TO LOCALTIME FOR DISPLAY PURPOSES ONLY. WE'LL
-# FOLLOW SUIT.
-#
-# DETERMINE THE TOTAL NUMBER OF DAYS FORECASTED BY THE API CALL.
-utc_dt_start      = datetime.datetime.fromtimestamp(forecast_for_city.Daily().Time(), pytz.utc)
-utc_dt_end        = datetime.datetime.fromtimestamp(forecast_for_city.Daily().TimeEnd(), pytz.utc)
-num_forecast_days = utc_dt_end - utc_dt_start
-dow_start_name    = day_abbr[utc_dt_start.weekday()]
-
-# breakpoint()
-
-# print(
-#     f"Address: {location.address}\n"
-#     f"Coordinates: {location.latitude}, {location.longitude}\n"
-#     f"Raw Data: {location.raw}\n"
-# )
-
-# # TRY TO USE THE WEATHER DAY VIEW CLASS
-# wdv_sample = wdv.WeatherDayView(
-#     weather_data=forecast_for_city.Daily()
-# )
-
-# TRY TO USE THE WEATHER TABLE
-# ALREADY KNOW THIS IS GOING TO BE A BIG OOF
-# I'M TOTALLY EXPECTING THIS TO FAIL ON THE FIRST PASS
-#
-#
-#
-#     HOLY FUCKING DOG SHIT THAT ACTUALLY WORKED!
-#
-# THE BORDERS ARE FUBAR, AND I NEED SOME PADDING AT THE END OF THE RUN
-#
-weather_table = wtbl.WeatherTable(
+weather_table     = wtbl.WeatherTable(
     weather_data=forecast_for_city.Daily()
 )
 
 os.system('cls')
-# print(wdv_sample)
 print(weather_table)
 print("\n\n\n")

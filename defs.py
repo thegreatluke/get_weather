@@ -1,4 +1,8 @@
-# GFM :: WMO CODE INTERPRETATIONS
+"""
+Defs Module
+
+Common definitions for literals used throughout the program.
+"""
 WMO_CLEAR_SKY          = 0
 WMO_MAINLY_CLEAR       = 1
 WMO_PARTLY_CLOUDY      = 2
@@ -27,7 +31,6 @@ WMO_SNOWSHOWERS_HEAVY  = 86
 WMO_TSTORM_SLIGHT      = 95
 WMO_TSTORMHAIL_SLIGHT  = 96
 
-# GFM :: UNICODE CHARACTER DEFINITIONS
 UNIC_SUNNY                = '☀'
 UNIC_CLOUDY               = '☁'
 UNIC_UMBRELLA             = '☂'

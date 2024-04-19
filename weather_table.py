@@ -1,24 +1,13 @@
-# GFM :: ADDING MY OWN WHACKED OUT TABLE IMPL
-#
-#
-# BCUZ
+"""
+WeatherTable Module
 
-# DESIGNED WIDTH = 13
-# DESIGNED TABLE WIDTH = (13 * 7) = 91 > 80
-# REMOVE PADDING WIDTH = 11
-# RP TABLE WIDTH = (11 * 7) = 77 < 80
-#
-# GO WITH THE LESS THAN 80 COLS DESIGN FIRST
-#
-# DESIGNED HEIGHT = 15
-#
-# NO REASON TO CHANGE THIS YET
+Adding my own whacked out table implementation.
+
+Bcuz.
+"""
 
 import weather_day_view as wdv
 import ansi
-# import pdb
-
-# pdb.set_trace()
 
 class WeatherTableCell:
     WIDTH             = 14
@@ -90,7 +79,6 @@ class WeatherTableCell:
                     udata=f"{WeatherTableCell.BORDER_VERTICAL}"
                 ).to_ansi_str()
 
-        # breakpoint()
         # THIS MAY NOT WORK, BUT FUCK IT
         a += self.weather_view.__str__()
 
