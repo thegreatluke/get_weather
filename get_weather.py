@@ -115,9 +115,9 @@ class forecast():
 parser = argparse.ArgumentParser(
                     formatter_class=argparse.RawDescriptionHelpFormatter,
                     description=textwrap.dedent('''\
-                       Weather forecast for a given City and State. 
+                       Weather forecast for a given City and State.
                        --------------------------------------------
-                             Weather data by Open-Meteo.com 
+                             Weather data by Open-Meteo.com
                              https://open-meteo.com/
                     '''))
 # Get arguments
@@ -145,4 +145,3 @@ f = forecast(lat, long, tz)
 #print("----------------------------------")
 #print("Weather data by Open-Meteo.com")
 #print("https://open-meteo.com/")
-
