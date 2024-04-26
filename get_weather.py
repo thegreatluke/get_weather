@@ -115,9 +115,9 @@ class forecast():
 parser = argparse.ArgumentParser(
                     formatter_class=argparse.RawDescriptionHelpFormatter,
                     description=textwrap.dedent('''\
-                       Weather forecast for a given City and State. 
+                       Weather forecast for a given City and State.
                        --------------------------------------------
-                             Weather data by Open-Meteo.com 
+                             Weather data by Open-Meteo.com
                              https://open-meteo.com/
                     '''))
 # Get arguments
@@ -138,11 +138,10 @@ tz = l.get_tz()
 #f = forecast(lat, long, tz).get_forecast()
 f = forecast(lat, long, tz)
 
-# print("Forcast for " + l.get_city() +", " + l.get_state())
-# print("Temperature => " + ''.join(str(f.get_temp()[0]))+''.join(str(f.get_temp()[1])))
-# print("Feels Like  => " + ''.join(str(f.get_feels()))+''.join(str(f.get_temp()[1])))
-# print("Humidity    => " + str(f.get_humid()) + "%")
-# print("----------------------------------")
-# print("Weather data by Open-Meteo.com")
-# print("https://open-meteo.com/")
-
+print("Forcast for " + l.get_city() +", " + l.get_state())
+print("Temperature => " + ''.join(str(f.get_temp()[0]))+''.join(str(f.get_temp()[1])))
+print("Feels Like  => " + ''.join(str(f.get_feels()))+''.join(str(f.get_temp()[1])))
+print("Humidity    => " + str(f.get_humid()) + "%")
+print("----------------------------------")
+print("Weather data by Open-Meteo.com")
+print("https://open-meteo.com/")

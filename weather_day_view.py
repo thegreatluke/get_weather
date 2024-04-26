@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # pylint: disable=line-too-long, superfluous-parens, too-few-public-methods, too-many-instance-attributes
 
 """
@@ -31,7 +32,7 @@ APICODE_WINDSPEED_10MMAX  = 7
 class WeatherDayView:
     """
     Defines a WeatherView object.
-    
+
     This expects to receive the var_name.Daily() collection as the weather_data parameter.
     """
     def __init__(self, **kwargs):

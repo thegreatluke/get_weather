@@ -1,2 +1,6 @@
 config.py
 __pycache__/
+pyvenv.cfg
+*.sqlite
+Notes.txt
+notes.txt

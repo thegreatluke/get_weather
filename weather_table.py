@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 WeatherTable Module
 
@@ -20,7 +21,7 @@ class WeatherTableCell:
         self.weather_data = kwargs['weather_data'] if 'weather_data' in kwargs else None
         self.origin_point = kwargs['origin_point'] if 'origin_point' in kwargs else ansi.ATCoordinatesNone()
         self.table_pos    = kwargs['table_pos'] if 'table_pos' in kwargs else 0
-        
+
         self.weather_view = wdv.WeatherDayView(
             weather_data = self.weather_data,
             day_offset   = self.table_pos,
@@ -29,7 +30,7 @@ class WeatherTableCell:
 
     def __str__(self) -> str:
         a = ''
-        
+
         if self.use_border:
             # I'M A DUMBASS
             # THIS FAILS ON THE SECOND CELL BECAUSE BY THIS POINT,
@@ -89,9 +90,9 @@ class WeatherTable:
     def __init__(self, **kwargs) -> None:
         self.width        = kwargs['width'] if 'width' in kwargs else 7
         self.weather_data = kwargs['weather_data'] if 'weather_data' in kwargs else None
-        
+
         self.cells = []
-        
+
         self.create_cell_table()
 
     def create_cell_table(self):
@@ -109,7 +110,7 @@ class WeatherTable:
 
     def __str__(self) -> str:
         a = ''
-        
+
         for b in range(0, len(self.cells)):
             a += self.cells[b].__str__()
 
